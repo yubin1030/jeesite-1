@@ -136,33 +136,7 @@ public abstract class BaseController {
 		redirectAttributes.addFlashAttribute("message", sb.toString());
 	}
 
-	/**
-	 * 客户端返回JSON字符串
-	 * @param response
-	 * @param object
-	 * @return
-	 */
-	protected String renderString(HttpServletResponse response, Object object) {
-		return renderString(response, JsonMapper.toJsonString(object), "application/json");
-	}
 
-	/**
-	 * 客户端返回字符串
-	 * @param response
-	 * @param string
-	 * @return
-	 */
-	protected String renderString(HttpServletResponse response, String string, String type) {
-		try {
-			response.reset();
-			response.setContentType(type);
-			response.setCharacterEncoding("utf-8");
-			response.getWriter().print(string);
-			return null;
-		} catch (IOException e) {
-			return null;
-		}
-	}
 
 	/**
 	 * 参数绑定异常
