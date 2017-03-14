@@ -76,7 +76,7 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
 				throw new AuthenticationException("msg:验证码错误, 请重试.");
 			}
 		}
-		int  a=1/0;
+
 		// 校验用户名密码
 		User user = getSystemService().getUserByLoginName(token.getUsername());
 		if (user != null) {
