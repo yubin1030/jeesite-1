@@ -3,10 +3,13 @@
  */
 package com.thinkgem.jeesite.common.utils;
 
-import java.io.Serializable;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
 import java.security.SecureRandom;
 import java.util.UUID;
 
+import com.alibaba.druid.util.HttpClientUtils;
 import org.activiti.engine.impl.cfg.IdGenerator;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.SessionIdGenerator;
@@ -59,14 +62,7 @@ public class IdGen implements IdGenerator, SessionIdGenerator {
 	public Serializable generateId(Session session) {
 		return IdGen.uuid();
 	}
-	
-	public static void main(String[] args) {
-		System.out.println(IdGen.uuid());
-		System.out.println(IdGen.uuid().length());
-		System.out.println(new IdGen().getNextId());
-		for (int i=0; i<1000; i++){
-			System.out.println(IdGen.randomLong() + "  " + IdGen.randomBase62(5));
-		}
-	}
+
+
 
 }
