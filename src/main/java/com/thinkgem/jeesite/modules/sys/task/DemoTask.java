@@ -1,7 +1,6 @@
 package com.thinkgem.jeesite.modules.sys.task;
 
-import com.alibaba.druid.util.HttpClientUtils;
-import com.sun.deploy.net.HttpUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Lazy;
