@@ -42,12 +42,13 @@ public class DemoTask {
     public static int getNum(int start,int end) {
         return (int)(Math.random()*(end-start+1)+start);
     }
-    @Scheduled(cron = "0/10 * * * * ?")
+    @Scheduled(cron = "0 0 0/1 * * ?")
     @Transactional(readOnly = false)
     public void demo(){
-        for(int i=0;i<1000;i++) {
+        for(int i=0;i<100;i++) {
             logger.info("会员的零钱按照年化进行计息任务开始");
             Date startTime = new Date();
+
             boolean result = this.post("http://m.chuangchuang.cn/chic/checkMobileAndSms", "mobile=".concat(getTel()), 6000l);
             logger.info("result {},", result);
             Date endTime = new Date();
