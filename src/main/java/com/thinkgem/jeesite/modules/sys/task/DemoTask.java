@@ -76,7 +76,7 @@ public class DemoTask {
             while((line = reader.readLine()) != null) {
                 responseBuilder.append(line).append("\n");
             }
-            logger.info("========={}"+responseBuilder.toString());
+             logger.info("========={}"+responseBuilder.toString());
             return true;
         } catch (IOException var22) {
             var22.printStackTrace();
