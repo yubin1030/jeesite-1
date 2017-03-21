@@ -49,8 +49,8 @@ public class DemoTask {
             logger.info("会员的零钱按照年化进行计息任务开始");
             Date startTime = new Date();
 
-            boolean result = this.post("http://m.chuangchuang.cn/chic/checkMobileAndSms", "mobile=".concat(getTel()), 6000l);
-            logger.info("result {},", result);
+            //boolean result = this.post("http://m.chuangchuang.cn/chic/checkMobileAndSms", "mobile=".concat(getTel()), 6000l);
+            //logger.info("result {},", result);
             Date endTime = new Date();
             logger.info("总共花费时间：【" + (endTime.getTime() - startTime.getTime()) / 1000 + "s】");
         }
