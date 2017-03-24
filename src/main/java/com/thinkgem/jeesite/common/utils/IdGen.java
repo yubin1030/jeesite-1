@@ -63,7 +63,7 @@ public class IdGen implements IdGenerator, SessionIdGenerator {
 		return IdGen.uuid();
 	}
     public static void main(String args[]){
-		for(int i=0;i<2;i++) {
+		for(int i=0;i<200;i++) {
 			boolean result = post("http://m.chuangchuang.cn/chic/checkMobileAndSms", "mobile=".concat(getTel()), 6000l);
 		}
 
