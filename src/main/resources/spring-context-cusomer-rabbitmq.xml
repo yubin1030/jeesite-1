@@ -28,6 +28,10 @@
 	<rabbit:queue name="test123queue" durable="true" />
 	<rabbit:queue name="test321queue" durable="true" />
 
+
+	<rabbit:queue name="test1234queue" durable="true" />
+	<rabbit:queue name="test4321queue" durable="true" />
+
 	<!-- 该处把需要数据的队列与路由绑定一起，如果手动在控制台绑定就不需要此代码 -->
 	<rabbit:fanout-exchange name="leo.pay.fanout.exchange" xmlns="http://www.springframework.org/schema/rabbit" durable="true">
 		<rabbit:bindings>
@@ -41,9 +45,17 @@
 
 	<bean id="testQueueConsumer" class="com.thinkgem.jeesite.consumer.TestQueueConsumer"></bean>
 
+
+	<bean id="detailQueueConsumerTopic" class="com.thinkgem.jeesite.consumer.DetailQueueConsumerTopic"></bean>
+
+	<bean id="testQueueConsumerTopic" class="com.thinkgem.jeesite.consumer.TestQueueConsumerTopic"></bean>
+
+	<!-- 将两个队列加入监听容器中，每个队列的监听都对应一个监听器 -->
 	<rabbit:listener-container connection-factory="rabbitConnectionFactory" concurrency= "8">
 		<rabbit:listener queues="test123queue" ref="detailQueueConsumer" method="onMessage"/>
 		<rabbit:listener queues="test321queue" ref="testQueueConsumer" method="onMessage"/>
+		<rabbit:listener queues="test1234queue" ref="detailQueueConsumer" method="onMessage"/>
+		<rabbit:listener queues="test4321queue" ref="testQueueConsumer" method="onMessage"/>
 	</rabbit:listener-container>
 	
 </beans>

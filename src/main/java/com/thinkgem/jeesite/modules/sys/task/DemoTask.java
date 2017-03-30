@@ -59,7 +59,15 @@ public class DemoTask {
             rabbitTemplate.send("leo.pay.fanout.exchange", "", new Message(str.getBytes(), new MessageProperties()));
         }
     }
-
+    @Scheduled(cron = "0/5 * * * * ?")
+    public  void topicMessage(){
+        //第二个参数为路由key(routingKey)的值，当路由可以为test321.hello.test123时，两个消费队列都可以收到消息，当值为test321.hello.aaa时，
+        // 只有绑定了test321.#的队列才可以收到消息，当值为ta1.hello.test123，只有绑定了*.*.test123的队列才可收到消息
+        for(int i = 1; i <= 10; i++) {
+            String str = "hello" + i;
+            rabbitTemplate.send("leo.pay.topic.exchange", "test321.hello.test123", new Message(str.getBytes(), new MessageProperties()));
+        }
+    }
 
 
 }
