@@ -1,9 +1,11 @@
 package com.thinkgem.jeesite.modules.sys.task;
 
-
+import org.springframework.amqp.core.MessageProperties;
 import com.thinkgem.jeesite.consumer.MessageProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -22,7 +24,6 @@ import java.util.Date;
 /**
  * Created by yubin on 17/3/16.
  */
-@Transactional(readOnly = true)
 @Service
 @Lazy(false)
 public class DemoTask {
@@ -31,8 +32,10 @@ public class DemoTask {
 
     @Autowired
     MessageProducer messageProducer;
+    @Autowired
+    RabbitTemplate rabbitTemplate;
+
     @Scheduled(cron = "0/5 * * * * ?")
-    @Transactional(readOnly = false)
     public void demo(){
         logger.info("===========");
         int a = Integer.MAX_VALUE;
@@ -47,6 +50,16 @@ public class DemoTask {
 
         }
     }
+    @Scheduled(cron = "0/5 * * * * ?")
+    public  void fanoutMessage(){
+        //往名字为leo.pay.fanout.exchange的路由里面发送数据，客户端中只要是与该路由绑定在一起的队列都会收到相关消息，
+        // 这类似全频广播，发送端不管队列是谁，都由客户端自己去绑定，谁需要数据谁去绑定自己的处理队列。
+        for(int i = 1; i <= 10; i++) {
+            String str = "hello" + i;
+            rabbitTemplate.send("leo.pay.fanout.exchange", "", new Message(str.getBytes(), new MessageProperties()));
+        }
+    }
+
 
 
 }

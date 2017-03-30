@@ -23,6 +23,7 @@ public class MessageProducer {
 
 	public void sendMessage(Object message){
 	  logger.info("to send message:{}",message);
+
 	  amqpTemplate.convertAndSend("queueTestKey",message);
 	}
 }

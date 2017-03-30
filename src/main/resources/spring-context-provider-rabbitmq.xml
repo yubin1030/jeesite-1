@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+     http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-4.1.xsd
+     http://www.springframework.org/schema/rabbit
+     http://www.springframework.org/schema/rabbit/spring-rabbit-1.6.xsd">
+
+	<!-- 加载配置属性文件 -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:jeesite.properties" />
+
+	<!-- rabbitMQ配置 -->
+	<bean id="rabbitConnectionFactory"
+		  class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">
+		<constructor-arg value="${rabbitmq.host}"/>
+		<property name="username" value="${rabbitmq.username}"/>
+		<property name="password" value="${rabbitmq.password}"/>
+		<property name="channelCacheSize" value="8"/>
+		<property name="port" value="${rabbitmq.port}"></property>
+	</bean>
+	<rabbit:admin connection-factory="rabbitConnectionFactory"/>
+
+	<rabbit:queue name="test123queue" durable="true"/>
+	<rabbit:queue name="test321queue" durable="true"/>
+
+	<rabbit:fanout-exchange name="leo.pay.fanout.exchange" xmlns="http://www.springframework.org/schema/rabbit" durable="true">
+	</rabbit:fanout-exchange>
+
+	<!-- 创建rabbitTemplate 消息模板类 -->
+	<bean id="rabbitTemplate" class="org.springframework.amqp.rabbit.core.RabbitTemplate">
+		<constructor-arg ref="rabbitConnectionFactory"></constructor-arg>
+	</bean>
+	
+</beans>
