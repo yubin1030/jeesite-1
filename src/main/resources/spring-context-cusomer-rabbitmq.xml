@@ -51,7 +51,7 @@
 	<bean id="testQueueConsumerTopic" class="com.thinkgem.jeesite.consumer.TestQueueConsumerTopic"></bean>
 
 	<!-- 将两个队列加入监听容器中，每个队列的监听都对应一个监听器 -->
-	<rabbit:listener-container connection-factory="rabbitConnectionFactory" concurrency= "8">
+	<rabbit:listener-container connection-factory="rabbitConnectionFactory" concurrency= "4">
 		<rabbit:listener queues="test123queue" ref="detailQueueConsumer" method="onMessage"/>
 		<rabbit:listener queues="test321queue" ref="testQueueConsumer" method="onMessage"/>
 		<rabbit:listener queues="test1234queue" ref="detailQueueConsumer" method="onMessage"/>
