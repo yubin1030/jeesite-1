@@ -84,6 +84,7 @@ public class JedisSessionDAO extends AbstractSessionDAO implements SessionDAO {
 		} catch (Exception e) {
 			logger.error("update {} {}", session.getId(), request != null ? request.getRequestURI() : "", e);
 		} finally {
+			logger.error("ping yubin{} {}", session.getId(), jedis.ping());
 			JedisUtils.returnResource(jedis);
 		}
 	}

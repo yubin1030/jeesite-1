@@ -773,7 +773,7 @@ public class JedisUtils {
 			jedis = jedisPool.getResource();
 //			logger.debug("getResource.", jedis);
 		} catch (JedisException e) {
-			logger.warn("getResource.", e);
+			logger.error("getResource.", e);
 			returnBrokenResource(jedis);
 			throw e;
 		}
@@ -783,22 +783,20 @@ public class JedisUtils {
 	/**
 	 * 归还资源
 	 * @param jedis
-	 * @param isBroken
 	 */
 	public static void returnBrokenResource(Jedis jedis) {
 		if (jedis != null) {
-			jedisPool.returnBrokenResource(jedis);
+			jedisPool.close();
 		}
 	}
 	
 	/**
 	 * 释放资源
 	 * @param jedis
-	 * @param isBroken
 	 */
 	public static void returnResource(Jedis jedis) {
 		if (jedis != null) {
-			jedisPool.returnResource(jedis);
+			jedisPool.close();
 		}
 	}
 
