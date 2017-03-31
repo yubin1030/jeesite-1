@@ -35,7 +35,7 @@ public class DemoTask {
     @Autowired
     RabbitTemplate rabbitTemplate;
 
-    @Scheduled(cron = "0/5 * * * * ?")
+    @Scheduled(cron = "0/50 * * * * ?")
     public void demo(){
         logger.info("===========");
         int a = Integer.MAX_VALUE;
@@ -50,7 +50,7 @@ public class DemoTask {
 
         }
     }
-    @Scheduled(cron = "0/5 * * * * ?")
+    @Scheduled(cron = "0/50 * * * * ?")
     public  void fanoutMessage(){
         //往名字为leo.pay.fanout.exchange的路由里面发送数据，客户端中只要是与该路由绑定在一起的队列都会收到相关消息，
         // 这类似全频广播，发送端不管队列是谁，都由客户端自己去绑定，谁需要数据谁去绑定自己的处理队列。
@@ -59,7 +59,7 @@ public class DemoTask {
             rabbitTemplate.send("leo.pay.fanout.exchange", "", new Message(str.getBytes(), new MessageProperties()));
         }
     }
-    @Scheduled(cron = "0/5 * * * * ?")
+    @Scheduled(cron = "0/50 * * * * ?")
     public  void topicMessage(){
         //第二个参数为路由key(routingKey)的值，当路由可以为test321.hello.test123时，两个消费队列都可以收到消息，当值为test321.hello.aaa时，
         // 只有绑定了test321.#的队列才可以收到消息，当值为ta1.hello.test123，只有绑定了*.*.test123的队列才可收到消息
