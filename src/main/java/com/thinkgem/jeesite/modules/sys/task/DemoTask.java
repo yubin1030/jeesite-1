@@ -9,6 +9,9 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,13 +38,23 @@ public class DemoTask {
     MessageProducer messageProducer;
     @Autowired
     RabbitTemplate rabbitTemplate;
+    @Autowired
+    RedisTemplate<String,String> redisTemplate;
 
 
-    @Scheduled(cron = "0/5 * * * * ?")
-    public void testRedis(){
+    @Scheduled(cron = "0/20 * * * * ?")
+    public void testRedisTemplate(){
         logger.info("=======");
-        JedisUtils.set("yu","yu",2);
-        logger.info("xixi");
+        String key="yubin";
+        String value="yubin";
+        redisTemplate.execute(new RedisCallback() {
+            public Long doInRedis(RedisConnection connection)  {
+                connection.set(key.getBytes(), value.getBytes());
+                connection.expire(key.getBytes(), 2);
+
+                return 1L;
+            }
+        });
     }
 
     /*@Scheduled(cron = "0/50 * * * * ?")

@@ -783,7 +783,7 @@ public class JedisUtils {
 	 */
 	public static void returnBrokenResource(Jedis jedis) {
 		if (jedis != null) {
-			jedisPool.close();
+			jedisPool.returnBrokenResource(jedis);
 		}
 	}
 	
@@ -793,7 +793,7 @@ public class JedisUtils {
 	 */
 	public static void returnResource(Jedis jedis) {
 		if (jedis != null) {
-			jedisPool.close();
+			jedisPool.returnResource(jedis);
 		}
 	}
 
