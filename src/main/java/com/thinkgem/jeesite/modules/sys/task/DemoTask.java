@@ -1,5 +1,6 @@
 package com.thinkgem.jeesite.modules.sys.task;
 
+import com.thinkgem.jeesite.common.utils.JedisUtils;
 import org.springframework.amqp.core.MessageProperties;
 import com.thinkgem.jeesite.consumer.MessageProducer;
 import org.slf4j.Logger;
@@ -35,7 +36,15 @@ public class DemoTask {
     @Autowired
     RabbitTemplate rabbitTemplate;
 
-    @Scheduled(cron = "0/50 * * * * ?")
+
+    @Scheduled(cron = "0/5 * * * * ?")
+    public void testRedis(){
+        logger.info("=======");
+        JedisUtils.set("yu","yu",2);
+        logger.info("xixi");
+    }
+
+    /*@Scheduled(cron = "0/50 * * * * ?")
     public void demo(){
         logger.info("===========");
         int a = Integer.MAX_VALUE;
@@ -67,7 +76,8 @@ public class DemoTask {
             String str = "hello" + i;
             rabbitTemplate.send("leo.pay.topic.exchange", "test321.hello.test123", new Message(str.getBytes(), new MessageProperties()));
         }
-    }
+    }*/
+
 
 
 }
