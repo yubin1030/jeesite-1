@@ -80,7 +80,7 @@ public class DemoTask {
             String str = "hello" + i;
             rabbitTemplate.send("leo.pay.fanout.exchange", "", new Message(str.getBytes(), new MessageProperties()));
         }
-    }
+    }*/
     @Scheduled(cron = "0/50 * * * * ?")
     public  void topicMessage(){
         //第二个参数为路由key(routingKey)的值，当路由可以为test321.hello.test123时，两个消费队列都可以收到消息，当值为test321.hello.aaa时，
@@ -89,7 +89,7 @@ public class DemoTask {
             String str = "hello" + i;
             rabbitTemplate.send("leo.pay.topic.exchange", "test321.hello.test123", new Message(str.getBytes(), new MessageProperties()));
         }
-    }*/
+    }
 
 
 
