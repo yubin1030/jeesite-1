@@ -57,7 +57,7 @@ public class DemoTask {
         });
     }
 
-    @Scheduled(cron = "0/20 * * * * ?")
+    /*@Scheduled(cron = "0/20 * * * * ?")
     public void demo(){
         logger.info("===========");
         int a = Integer.MAX_VALUE;
@@ -89,7 +89,7 @@ public class DemoTask {
             String str = "hello" + i;
             rabbitTemplate.send("leo.pay.topic.exchange", "test321.hello.test123", new Message(str.getBytes(), new MessageProperties()));
         }
-    }
+    }*/
 
 
 
